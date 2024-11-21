@@ -26,39 +26,80 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun FormulirView(modifier: Modifier = Modifier, listJk: List<String>,
                  onSubmitClicked: (MutableList<String>) -> Unit) {
-    var nama by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
+    var nama  by remember { mutableStateOf("") }
+    var email  by remember { mutableStateOf("") }
     var alamat by remember { mutableStateOf("") }
     var notelepon by remember { mutableStateOf("") }
     var gender by remember { mutableStateOf("") }
 
-    val listData: MutableList<String> = mutableListOf(nama, gender, alamat, email, notelepon)
+    val listData: MutableList<String> = mutableListOf(nama,gender,alamat,email,notelepon)
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+    ){
         TextField(
             value = nama,
-            onValueChange = { nama = it },
+            onValueChange = {nama = it},
             label = {
                 Text(text = "nama")
             },
             placeholder = {
                 Text(text = "isi nama anda")
             },
-            modifier = Modifier.fillMaxWidth().padding(5.dp)
+            modifier= Modifier.fillMaxWidth().padding(5.dp)
         )
         Row(modifier = Modifier.fillMaxWidth()) {
-            listJk.forEach { selectedGender ->
+            listJk.forEach{selectedGender->
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     RadioButton(
                         selected = gender == selectedGender,
-                        onClick = { gender = selectedGender }
+                        onClick = {gender = selectedGender}
                     )
                     Text(text = selectedGender)
                 }
 
             }
         }
+        TextField(
+            value = email,
+            onValueChange = {email = it},
+            label = {
+                Text(text = "email")
+            },
+            placeholder = {
+                Text(text = "isi email anda")
+            },
+            modifier= Modifier.fillMaxWidth().padding(5.dp),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
+        )
+        TextField(
+            value = alamat,
+            onValueChange = {alamat = it},
+            label = {
+                Text(text = "alamat")
+            },
+            placeholder = {
+                Text(text = "isi alamat anda")
+            },
+            modifier= Modifier.fillMaxWidth().padding(5.dp)
+        )
+        TextField(
+            value = notelepon,
+            onValueChange = {notelepon = it},
+            label = {
+                Text(text = "no telepon")
+            },
+            placeholder = {
+                Text(text = "isi notelepon anda")
+            },
+            modifier= Modifier.fillMaxWidth().padding(5.dp),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+        )
+        Button(onClick = {
+            onSubmitClicked(listData)
+        }) {
+            Text(text = "Simpan")
+        }
+
     }
 }
